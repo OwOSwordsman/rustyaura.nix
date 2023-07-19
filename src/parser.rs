@@ -18,10 +18,7 @@ pub fn parse_classes(mut input: &str) -> (Vec<&str>, Vec<(&str, &str)>) {
     {
         input = remaining_input;
         surrounding_rust_code.push(rust_code);
-        let Ok((remaining_input, css_class)) = class_body(input) else {
-            dbg!("oof");
-            break
-        };
+        let Ok((remaining_input, css_class)) = class_body(input) else { break };
         css_classes.push((tag, css_class));
         input = remaining_input;
     }
@@ -101,4 +98,12 @@ fn until_builder_start(input: &str) -> nom::IResult<&str, (&str, &str)> {
         nom::bytes::complete::take_until(".classes("),
         nom::bytes::complete::tag(".classes("),
     ))(input)
+}
+
+pub fn parse_html_classes(input: &str) -> Vec<&str> {
+    parse_classes(input)
+        .1
+        .into_iter()
+        .map(|(_, class_body)| class_body)
+        .collect()
 }

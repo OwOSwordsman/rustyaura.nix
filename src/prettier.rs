@@ -2,10 +2,28 @@ use std::error::Error;
 use std::io::Write;
 use std::process::{Command, Stdio};
 
-pub fn format_classes(classes: &[(&str, &str)]) -> Result<String, Box<dyn Error>> {
+use crate::parser;
+
+pub fn format_classes(
+    surrounding_code: &[&str],
+    classes: &[(&str, &str)],
+) -> Result<String, Box<dyn Error>> {
     let generated_html = generate_html(classes);
     let formatted_html = run_prettier(&generated_html)?;
-    todo!()
+    let formatted_classes = parser::parse_html_classes(&formatted_html);
+
+    let mut formatted_code = String::new();
+    for (code, start, body) in itertools::izip!(
+        surrounding_code.into_iter(),
+        classes.into_iter().map(|(start, _)| start),
+        formatted_classes.into_iter(),
+    ) {
+        formatted_code.push_str(code);
+        formatted_code.push_str(start);
+        formatted_code.push_str(body);
+    }
+    formatted_code.push_str(surrounding_code.last().unwrap());
+    Ok(formatted_code)
 }
 
 fn generate_html(classes: &[(&str, &str)]) -> String {

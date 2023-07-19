@@ -12,7 +12,7 @@ pub fn run() -> Result<(), Box<dyn Error>> {
     std::io::stdin().read_to_string(&mut input)?;
     let formatted_rust = run_rustfmt(&input)?;
     let (surrounding_rust_code, css_classes) = parser::parse_classes(&formatted_rust);
-    let formatted_classes = prettier::format_classes(&css_classes)?;
+    let formatted_classes = prettier::format_classes(&surrounding_rust_code, &css_classes)?;
     Ok(())
 }
 
