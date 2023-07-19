@@ -18,7 +18,10 @@ pub fn parse_classes(mut input: &str) -> (Vec<&str>, Vec<(&str, &str)>) {
     {
         input = remaining_input;
         surrounding_rust_code.push(rust_code);
-        let Ok((remaining_input, css_class)) = class_body(input) else { break };
+        let Ok((remaining_input, css_class)) = class_body(input) else {
+            dbg!("oof");
+            break
+        };
         css_classes.push((tag, css_class));
         input = remaining_input;
     }

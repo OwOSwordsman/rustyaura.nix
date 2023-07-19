@@ -85,7 +85,7 @@
         };
 
         devShells.default = pkgs.mkShell {
-          packages = with pkgs; dependencies ++ [];
+          packages = with pkgs; dependencies ++ [packages.prettier];
           env = {
             LD_LIBRARY_PATH = pkgs.lib.strings.makeLibraryPath dependencies;
           };
