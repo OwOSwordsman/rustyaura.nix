@@ -95,8 +95,8 @@ fn until_macro_start(input: &str) -> nom::IResult<&str, (&str, &str)> {
 /// returns (remaining code, (rust code, method call))
 fn until_builder_start(input: &str) -> nom::IResult<&str, (&str, &str)> {
     nom::sequence::tuple((
-        nom::bytes::complete::take_until(".classes("),
-        nom::bytes::complete::tag(".classes("),
+        nom::bytes::complete::take_until(".classes(\""),
+        nom::bytes::complete::tag(".classes(\""),
     ))(input)
 }
 
