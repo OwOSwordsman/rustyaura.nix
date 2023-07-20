@@ -46,46 +46,31 @@
 
         packages.rustyaura = naersk'.buildPackage {
           src = ./.;
-          buildInputs = dependencies ++ [packages.prettier];
+          buildInputs = dependencies ++ [pkgs.makeWrapper];
+
+          postInstall = ''
+            wrapProgram "$out/bin/rustyaura" --prefix PATH : "${packages.prettierd-tailwind}/bin"
+          '';
         };
 
-        packages.prettier-plugin-tailwindcss = pkgs.buildNpmPackage rec {
-          pname = "prettier-plugin-tailwindcss";
-          version = "0.4.1";
-
-          src = pkgs.fetchFromGitHub {
-            owner = "tailwindlabs";
-            repo = pname;
-            rev = "v${version}";
-            hash = "sha256-yc434+Yhhzw1ivz+oAgLCPCndVb0g+KucPxPknGlRp4=";
-          };
-
-          npmDepsHash = "sha256-b2ioMu+9+j6xPe+0hqu9JrZfVW5eH4b3HISeTYeugeY=";
-        };
-
-        packages.prettier = pkgs.stdenv.mkDerivation {
-          name = "prettier";
+        packages.prettierd-tailwind = pkgs.buildNpmPackage {
+          pname = "prettierd";
+          version = "0.1.0";
 
           src = ./.;
-          nativeBuildInputs = with pkgs; [makeWrapper];
+          npmDepsHash = "sha256-NfTU0+gP3Zwm2IDvIHEm00KCmyR47Fpolw6yEMTSE4c=";
+          dontNpmBuild = true;
 
-          buildPhase = ''
-            mkdir -p $out/lib/node_modules
-            cp -r ${pkgs.nodePackages.prettier}/lib/node_modules/* $out/lib/node_modules
-            cp -r ${packages.prettier-plugin-tailwindcss}/lib/node_modules/* $out/lib/node_modules
-          '';
-
-          installPhase = ''
+          nativeBuildInputs = [pkgs.makeWrapper];
+          postInstall = ''
             mkdir -p $out/bin
-            makeWrapper $out/lib/node_modules/prettier/bin-prettier.js $out/bin/prettier \
-              --add-flags "--tab-width 4" \
-              --add-flags "--plugin $out/lib/node_modules/prettier-plugin-tailwindcss" \
-              --add-flags "--plugin $out/lib/node_modules/prettier"
+            makeWrapper "$out/lib/node_modules/prettierd-tailwind/node_modules/@fsouza/prettierd/bin/prettierd" \
+              $out/bin/prettierd
           '';
         };
 
         devShells.default = pkgs.mkShell {
-          packages = with pkgs; dependencies ++ [packages.prettier];
+          packages = with pkgs; dependencies ++ [nodejs];
           env = {
             LD_LIBRARY_PATH = pkgs.lib.strings.makeLibraryPath dependencies;
           };

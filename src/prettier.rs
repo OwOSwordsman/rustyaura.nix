@@ -41,8 +41,8 @@ fn generate_html(classes: &[(&str, &str)]) -> String {
 }
 
 fn run_prettier(html: &str) -> Result<String, Box<dyn Error>> {
-    let mut prettier = Command::new("prettier")
-        .args(["--parser", "html"])
+    let mut prettier = Command::new("prettierd")
+        .arg("index.html")
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .spawn()?;
