@@ -65,7 +65,8 @@
           postInstall = ''
             mkdir -p $out/bin
             makeWrapper "$out/lib/node_modules/prettierd-tailwind/node_modules/@fsouza/prettierd/bin/prettierd" \
-              $out/bin/prettierd
+              $out/bin/prettierd \
+              --chdir $out/lib/node_modules/prettierd-tailwind
           '';
         };
 
