@@ -66,6 +66,7 @@
             mkdir -p $out/bin
             makeWrapper "$out/lib/node_modules/prettierd-tailwind/node_modules/@fsouza/prettierd/bin/prettierd" \
               $out/bin/prettierd \
+              --prefix PATH : "${pkgs.nodejs}/bin" \
               --chdir $out/lib/node_modules/prettierd-tailwind
           '';
         };
