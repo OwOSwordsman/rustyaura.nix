@@ -49,8 +49,19 @@
           buildInputs = dependencies ++ [pkgs.makeWrapper];
 
           postInstall = ''
-            wrapProgram "$out/bin/rustyaura" --prefix PATH : "${packages.prettierd-tailwind}/bin"
+            wrapProgram "$out/bin/rustyaura" \
+              --prefix PATH : "${packages.prettierd-tailwind}/bin" \
+              --prefix PATH : "${packages.leptosfmt}/bin"
           '';
+        };
+
+        packages.leptosfmt = naersk'.buildPackage {
+          src = pkgs.fetchFromGitHub {
+            owner = "bram209";
+            repo = "leptosfmt";
+            rev = "0.1.11";
+            sha256 = "sha256-Y9vlTwx/h8Z4ZyQEmSa+8apKlkSNXuJPmznTs/0/JqA=";
+          };
         };
 
         packages.prettierd-tailwind = pkgs.buildNpmPackage {
