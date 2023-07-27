@@ -1,6 +1,6 @@
 # rustyaura.nix
 
-A formatter that wraps around `rustfmt`, `prettierd`, and `leptosfmt`. The formatter reads from stdin and outputs formatted code to stdout.
+A formatter that wraps around `rustfmt`, `prettierd` (with tailwind prettier plugin), and `leptosfmt`. The formatter reads from stdin and outputs formatted code to stdout.
 
 ## Usage
 
