@@ -47,6 +47,7 @@
         packages.rustyaura = naersk'.buildPackage {
           src = ./.;
           buildInputs = dependencies ++ [pkgs.makeWrapper];
+          RUSTC_WRAPPER = "";
 
           postInstall = ''
             wrapProgram "$out/bin/rustyaura" \
@@ -62,6 +63,7 @@
             rev = "0.1.11";
             sha256 = "sha256-Y9vlTwx/h8Z4ZyQEmSa+8apKlkSNXuJPmznTs/0/JqA=";
           };
+          RUSTC_WRAPPER = "";
         };
 
         packages.prettierd-tailwind = pkgs.buildNpmPackage {
