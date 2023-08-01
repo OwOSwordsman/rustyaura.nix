@@ -60,8 +60,8 @@
           src = pkgs.fetchFromGitHub {
             owner = "bram209";
             repo = "leptosfmt";
-            rev = "0.1.11";
-            sha256 = "sha256-Y9vlTwx/h8Z4ZyQEmSa+8apKlkSNXuJPmznTs/0/JqA=";
+            rev = "0.1.12";
+            sha256 = "sha256-RR4gwmYna/mvUw5akQutWKaUCWzCjK512gynR9Pddd0=";
           };
           RUSTC_WRAPPER = "";
         };
