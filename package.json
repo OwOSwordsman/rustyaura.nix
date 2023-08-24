@@ -1,11 +1,11 @@
 {
-    "name": "prettierd-tailwind",
-    "version": "0.1.0",
-    "description": "Dummy npm project for rustyaura formatter",
-    "author": "OwOSwordsman",
-    "license": "MIT",
-    "dependencies": {
-        "@fsouza/prettierd": "^0.24.2",
-        "prettier-plugin-tailwindcss": "^0.4.1"
-    }
+  "name": "prettierd-tailwind",
+  "version": "0.1.0",
+  "description": "Dummy npm project for rustyaura formatter",
+  "author": "OwOSwordsman",
+  "license": "MIT",
+  "dependencies": {
+    "@fsouza/prettierd": "*",
+    "prettier-plugin-tailwindcss": "*"
+  }
 }

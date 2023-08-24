@@ -61,7 +61,7 @@
           version = "0.1.0";
 
           src = ./.;
-          npmDepsHash = "sha256-NfTU0+gP3Zwm2IDvIHEm00KCmyR47Fpolw6yEMTSE4c=";
+          npmDepsHash = "sha256-Mrw7U98gjxoQvakFwwj+TWo5/QeTOyJr2OeDhpC98zk=";
           dontNpmBuild = true;
 
           nativeBuildInputs = [pkgs.makeWrapper];
