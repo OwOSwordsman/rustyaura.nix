@@ -52,18 +52,8 @@
           postInstall = ''
             wrapProgram "$out/bin/rustyaura" \
               --prefix PATH : "${packages.prettierd-tailwind}/bin" \
-              --prefix PATH : "${packages.leptosfmt}/bin"
+              --prefix PATH : "${pkgs.leptosfmt}/bin"
           '';
-        };
-
-        packages.leptosfmt = naersk'.buildPackage {
-          src = pkgs.fetchFromGitHub {
-            owner = "bram209";
-            repo = "leptosfmt";
-            rev = "0.1.12";
-            sha256 = "sha256-RR4gwmYna/mvUw5akQutWKaUCWzCjK512gynR9Pddd0=";
-          };
-          RUSTC_WRAPPER = "";
         };
 
         packages.prettierd-tailwind = pkgs.buildNpmPackage {
